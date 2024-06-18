@@ -226,3 +226,22 @@ idx = torch.zeros((1, 1), dtype=torch.long).to(
     device
 )  # Move the input tensor to the MPS device
 print(decode(model.generate(idx=idx, max_new_tokens=1000)[0].tolist()))
+
+
+print('-'*80)
+
+print("Generating text through a Prompt!")
+
+prompt = "Kanye West"
+
+idx = torch.tensor(encode(prompt), dtype=torch.long, device=device).unsqueeze(0)
+print(decode(model.generate(idx=idx, max_new_tokens=350)[0].tolist()))
+
+
+print('-'*80)
+
+print("Saving the model")
+
+torch.save(model.state_dict(), "bigram_model.pth")
+
+print("Model saved!")
